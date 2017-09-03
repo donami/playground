@@ -1,14 +1,17 @@
 <template>
 
-  <ul>
+  <ul class="playground-list">
     <li v-for="playground in playgrounds">
-      <router-link :to="playground._id">{{ playground.name }}</router-link>
+
+      <playground-list-item :playground="playground"></playground-list-item>
+
     </li>
   </ul>
 
 </template>
 
 <script>
+import PlaygroundListItem from './playground-list-item';
 
 export default {
   name: 'playground-list',
@@ -18,10 +21,15 @@ export default {
       default: () => [],
     },
   },
+  components: {
+    'playground-list-item': PlaygroundListItem,
+  },
 };
 
 </script>
 
 <style scoped>
-
+  .playground-list {
+    list-style: none;
+  }
 </style>
