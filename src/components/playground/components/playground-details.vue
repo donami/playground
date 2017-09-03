@@ -18,6 +18,8 @@
 
     <comment-list :comments="comments"></comment-list>
 
+    <comment-form @submitted="onAddComment"></comment-form>
+
   </div>
 </template>
 
@@ -25,6 +27,7 @@
 import EquipmentItem from '../../equipment/components/equipment-item';
 import PlaygroundImages from './playground-images';
 import CommentList from '../../comments/components/comment-list';
+import CommentForm from '../../comments/components/comment-form';
 
 export default {
   props: ['playground', 'equipments', 'comments'],
@@ -32,6 +35,12 @@ export default {
     'equipment-item': EquipmentItem,
     'playground-images': PlaygroundImages,
     'comment-list': CommentList,
+    'comment-form': CommentForm,
+  },
+  methods: {
+    onAddComment(comment) {
+      this.$emit('addComment', comment);
+    },
   },
 };
 </script>

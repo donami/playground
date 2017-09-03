@@ -1,4 +1,4 @@
-import { normalize, schema } from 'normalizr';
+import { normalize } from 'normalizr';
 import * as _ from 'lodash';
 
 import * as types from '../mutations';
@@ -32,6 +32,17 @@ const actions = {
 
         commit(types.LOAD_ENTITIES, normalized.entities);
         commit(types.SELECT_PLAYGROUND, normalized.result);
+      })
+      .catch(err => console.log(err));
+  },
+
+  addComment({ commit }, payload) {
+    playgroundService.addComment(payload.playgroundId, payload.comment)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
       })
       .catch(err => console.log(err));
   },

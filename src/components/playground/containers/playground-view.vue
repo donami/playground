@@ -3,13 +3,14 @@
   <playground-details
     :playground="playground"
     :equipments="equipments"
-    :comments="comments">
+    :comments="comments"
+    @addComment="onAddComment">
   </playground-details>
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import PlaygroundDetails from '../components/playground-details';
 
@@ -21,6 +22,21 @@ export default {
   }),
   components: {
     'playground-details': PlaygroundDetails,
+  },
+  methods: {
+    ...mapActions({
+      addComment: 'addComment',
+    }),
+    onAddComment(comment) {
+      const body = {
+        playgroundId: this.playground._id,
+        comment: {
+          ...comment,
+        },
+      };
+
+      this.addComment(body);
+    },
   },
 };
 </script>

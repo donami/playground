@@ -38,8 +38,9 @@ module.exports = {
     'no-param-reassign': 0,
     'no-shadow': 0,
     'space-before-function-paren': 0,
-    'no-unused-vars': 0,
+    // 'no-unused-vars': 0,
     'prefer-default-export': 0,
+    'no-underscore-dangle': 0,
     'no-console': 0
   }
 }

@@ -1,8 +1,4 @@
-import { normalize, schema } from 'normalizr';
-
 import * as types from '../mutations';
-import playgroundService from '../../services/playground.service';
-import { playgroundSchema } from '../schema';
 
 // initial state
 const state = {

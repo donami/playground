@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import PlaygroundList from '../components/playground-list';
 
