@@ -9,6 +9,7 @@ const state = {
   data: {
     equipments: {},
     playgrounds: {},
+    comments: {},
   },
 };
 
@@ -22,6 +23,8 @@ const mutations = {
     state.data.equipments = { ...state.data.equipments, ...entities.equipments };
 
     state.data.playgrounds = { ...state.data.playgrounds, ...entities.playgrounds };
+
+    state.data.comments = { ...state.data.comments, ...entities.comments };
   },
 };
 

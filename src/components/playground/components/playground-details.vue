@@ -16,18 +16,22 @@
       </li>
     </ul>
 
+    <comment-list :comments="comments"></comment-list>
+
   </div>
 </template>
 
 <script>
 import EquipmentItem from '../../equipment/components/equipment-item';
 import PlaygroundImages from './playground-images';
+import CommentList from '../../comments/components/comment-list';
 
 export default {
-  props: ['playground', 'equipments'],
+  props: ['playground', 'equipments', 'comments'],
   components: {
     'equipment-item': EquipmentItem,
     'playground-images': PlaygroundImages,
+    'comment-list': CommentList,
   },
 };
 </script>

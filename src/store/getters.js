@@ -24,3 +24,14 @@ export const getSelectedPlaygroundsEquipment = (state) => {
   return selectedPlayground.equipments
     .map(id => state.entities.data.equipments[id]);
 };
+
+export const getSelectedPlaygroundsComments = (state) => {
+  const selectedPlayground = getSelectedPlayground(state);
+
+  if (!selectedPlayground) {
+    return [];
+  }
+
+  return selectedPlayground.comments
+    .map(id => state.entities.data.comments[id]);
+};

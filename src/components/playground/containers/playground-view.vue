@@ -2,7 +2,8 @@
 
   <playground-details
     :playground="playground"
-    :equipments="equipments">
+    :equipments="equipments"
+    :comments="comments">
   </playground-details>
 
 </template>
@@ -16,6 +17,7 @@ export default {
   computed: mapGetters({
     playground: 'getSelectedPlayground',
     equipments: 'getSelectedPlaygroundsEquipment',
+    comments: 'getSelectedPlaygroundsComments',
   }),
   components: {
     'playground-details': PlaygroundDetails,
