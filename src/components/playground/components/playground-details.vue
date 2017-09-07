@@ -46,6 +46,8 @@
 
   </v-layout>
 
+  <playground-map></playground-map>
+
   <comment-list :comments="comments" class="mb-5"></comment-list>
 
   <v-card>
@@ -62,6 +64,7 @@
 <script>
 import EquipmentItem from '../../equipment/components/equipment-item';
 import PlaygroundImages from './playground-images';
+import PlaygroundMap from './playground-map';
 import CommentList from '../../comments/components/comment-list';
 import CommentForm from '../../comments/components/comment-form';
 
@@ -72,6 +75,7 @@ export default {
     playgroundImages: PlaygroundImages,
     commentList: CommentList,
     commentForm: CommentForm,
+    playgroundMap: PlaygroundMap,
   },
   methods: {
     onAddComment(comment) {
