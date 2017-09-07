@@ -1,17 +1,48 @@
 <template>
+<v-layout column>
 
-  <ul class="playground-list">
-    <li v-for="playground in playgrounds">
+  <playground-search @searchChange="onSearchChange"></playground-search>
 
-      <playground-list-item :playground="playground"></playground-list-item>
+  <v-container>
 
-    </li>
-  </ul>
+    <v-card class="mb-5">
+      <v-card-title primary-title>
+        <div>
+          <div class="headline">Find the best playground</div>
+          <span class="grey--text">Spend some time with your child on a new playground nearby you</span>
+        </div>
+      </v-card-title>
+      <v-card-text>
+        <p>
+          Find a new favorite playground for you and your children to enjoy! On this page we have listed over 100,000 playgrounds so that you can find one that suits your needs.
+        </p>
 
+        <p>If a you know a playground nearby and want to share, feel free to add it to our site by clicking here.</p>
+      </v-card-text>
+    </v-card>
+
+    <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
+      <template slot="items" scope="props">
+           <td>
+             <img :src="props.item.image" alt="Image" class="thumb" />
+           </td>
+           <td>
+             <router-link :to="props.item.id">{{ props.item.name }}</router-link>
+             <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}"></router-link>
+           </td>
+           <td class="text-xs-right">{{ props.item.description }}</td>
+           <td class="text-xs-right">{{ props.item.location }}</td>
+         </template>
+    </v-data-table>
+
+  </v-container>
+
+
+</v-layout>
 </template>
 
 <script>
-import PlaygroundListItem from './playground-list-item';
+import PlaygroundSearch from './playground-search';
 
 export default {
   name: 'playground-list',
@@ -21,15 +52,59 @@ export default {
       default: () => [],
     },
   },
+  data() {
+    return {
+      headers: [
+        {
+          text: '',
+          value: false,
+        },
+        {
+          text: 'Playground',
+          align: 'left',
+          sortable: true,
+          value: 'name',
+        },
+        {
+          text: 'Description',
+          value: 'description',
+        },
+        {
+          text: 'Location',
+          value: 'location',
+        },
+      ],
+      search: '',
+    };
+  },
+  computed: {
+    items() {
+      return this.playgrounds.map(playground => ({
+        id: playground._id,
+        name: playground.name,
+        description: playground.description,
+        location: playground.location ? `${playground.location.address}, ${playground.location.city}` : null,
+        image: playground.images.length ? playground.images[0] : null,
+      }));
+    },
+  },
+  methods: {
+    onSearchChange(value) {
+      this.search = value;
+    },
+  },
   components: {
-    'playground-list-item': PlaygroundListItem,
+    playgroundSearch: PlaygroundSearch,
   },
 };
-
 </script>
 
 <style scoped>
-  .playground-list {
-    list-style: none;
-  }
+.playground-list {
+  list-style: none;
+}
+
+.thumb {
+  max-width: 128px;
+}
 </style>

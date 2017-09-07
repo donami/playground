@@ -1,17 +1,23 @@
 <template>
+<v-card>
 
-  <div>
+  <v-card-text>
 
-    <div v-if="!comments.length">
-      <p>No comments exists for this playground</p>
-    </div>
+    <v-card-title>
+      <h2 class="headline">Comments ({{ comments.length }})</h2>
+    </v-card-title>
 
-    <div v-for="comment in comments">
-      <comment :comment="comment"></comment>
-    </div>
+    <p v-if="!comments.length">No comments exists for this playground</p>
 
-  </div>
+    <v-list two-line v-if="comments.length">
+      <template v-for="comment in comments">
+            <comment :comment="comment"></comment>
+      </template>
+    </v-list>
 
+  </v-card-text>
+
+</v-card>
 </template>
 
 <script>

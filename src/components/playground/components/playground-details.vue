@@ -1,26 +1,62 @@
+<style lang="scss">
+.equipments {
+    list-style: none;
+}
+</style>
+
 <template>
-  <div v-if="playground">
-    <h1>{{ playground.name }}</h1>
+<v-container v-if="playground">
 
-    <p v-if="playground.description">
-      {{ playground.description }}
-    </p>
+  <h1 class="display-1">{{ playground.name }}</h1>
 
-    <playground-images :images="playground.images"></playground-images>
+  <blockquote v-if="playground.description" class="mb-3">
+    {{ playground.description }}
+  </blockquote>
 
-    <h3>Equipment on this playground</h3>
+  <v-layout row wrap>
 
-    <ul class="equipments">
-      <li v-for="equipment in equipments">
-        <equipment-item :equipment="equipment"></equipment-item>
-      </li>
-    </ul>
+    <v-flex xs12 md7>
 
-    <comment-list :comments="comments"></comment-list>
+      <playground-images :images="playground.images"></playground-images>
 
-    <comment-form @submitted="onAddComment"></comment-form>
+    </v-flex>
 
-  </div>
+    <v-flex xs12 md4 offset-md1>
+
+      <h3 class="headline text-xs-center">Activities to enjoy</h3>
+
+      <v-card>
+
+        <v-list one-line>
+          <template v-for="item in equipments">
+            <v-list-tile avatar v-bind:key="item.title">
+              <v-list-tile-avatar>
+                <img v-bind:src="item.image"></v-list-tile-avatar>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="item.name"></v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+        </v-list>
+      </v-card>
+
+
+    </v-flex>
+
+  </v-layout>
+
+  <comment-list :comments="comments" class="mb-5"></comment-list>
+
+  <v-card>
+    <v-card-text>
+
+      <comment-form @submitted="onAddComment"></comment-form>
+
+    </v-card-text>
+  </v-card>
+
+</v-container>
 </template>
 
 <script>
@@ -32,10 +68,10 @@ import CommentForm from '../../comments/components/comment-form';
 export default {
   props: ['playground', 'equipments', 'comments'],
   components: {
-    'equipment-item': EquipmentItem,
-    'playground-images': PlaygroundImages,
-    'comment-list': CommentList,
-    'comment-form': CommentForm,
+    equipmentItem: EquipmentItem,
+    playgroundImages: PlaygroundImages,
+    commentList: CommentList,
+    commentForm: CommentForm,
   },
   methods: {
     onAddComment(comment) {
@@ -44,9 +80,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  .equipments {
-    list-style: none;
-  }
-</style>

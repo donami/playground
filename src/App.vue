@@ -1,37 +1,58 @@
 <template>
-  <div id="app">
 
-    <top></top>
+<div id="app">
+  <v-app light>
+    <v-toolbar class="white">
+       <v-toolbar-title class="top-titlebar">
+         <router-link :to="{ name: 'home'}">
+           <img src="/static/vuetify.png" alt="Logo" />
+           <h1>Playparks.io</h1>
+         </router-link>
+       </v-toolbar-title>
+     </v-toolbar>
+    <main>
 
-    <container>
       <router-view></router-view>
-    </container>
-  </div>
+
+
+    </main>
+    
+    <footer-bottom></footer-bottom>
+
+    <!-- <v-footer :absolute="true">
+      <span>© {{ new Date().getFullYear() }}</span>
+    </v-footer> -->
+  </v-app>
+</div>
 </template>
 
 <script>
-import Top from './components/core/components/top';
+import FooterBottom from './components/core/components/footer-bottom';
 
 export default {
   name: 'app',
   components: {
-    top: Top,
+    footerBottom: FooterBottom,
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  // width: 1280px;
-  // margin: 0 auto;
-
-  a {
-    color: #1998e6;
-    text-decoration: none;
+.top-titlebar {
+  h1 {
+    font-size: 1.5rem;
+    display: inline-block;
+    line-height: 48px;
+    padding: 0;
+    float: left;
+    margin: 0;
+    margin-left: 10px;
   }
+  img {
+    float: left;
+    display: inline-block;
+    height: 48px;
+  }
+
 }
 </style>

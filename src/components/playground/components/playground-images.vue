@@ -1,27 +1,51 @@
 <template>
+<v-container grid-list-md>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition" :overlay="false">
+      <v-card>
 
-  <grid>
+        <v-toolbar dark class="primary">
 
-    <grid-item size="2/6">
+          <v-spacer></v-spacer>
+
+          <v-toolbar-items>
+            <v-btn dark flat @click.native="dialog = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+
+        </v-toolbar>
+
+        <v-card-text>
+          <img :src="activeImage" alt="Image">
+        </v-card-text>
+
+      </v-card>
+    </v-dialog>
+  </v-layout>
+
+  <v-layout row wrap>
+
+    <v-flex xs12 md4>
 
       <div class="image-list">
         <div v-for="image in images">
-          <img :src="image" alt="Image Preview" v-on:click="changeImage(image)">
+          <img :src="image" alt="Image Preview" v-on:click.stop="dialog = true">
         </div>
       </div>
 
-    </grid-item>
+    </v-flex>
 
-    <grid-item size="4/6">
+    <v-flex xs12 md8>
 
       <div class="active-image">
-        <img :src="activeImage" alt="Image">
+        <img :src="activeImage" v-on:click.stop="dialog = true" alt="Image">
       </div>
 
-    </grid-item>
+    </v-flex>
 
-  </grid>
-
+  </v-layout>
+</v-container>
 </template>
 
 <script>
@@ -34,6 +58,7 @@ export default {
   },
   data: () => ({
     activeImage: null,
+    dialog: false,
   }),
   methods: {
     changeImage(image) {
@@ -47,15 +72,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .image-list {
+img {
+    max-width: 100%;
+}
+.image-list {
     img {
-      max-width: 100%;
+        cursor: pointer;
     }
-  }
-  .active-image {
-    img {
-      max-width: 100%;
-      cursor: pointer;
+}
+.active-image {
+    @media (max-width: 960px) {
+        display: none;
     }
-  }
+
+    cursor: pointer;
+}
 </style>

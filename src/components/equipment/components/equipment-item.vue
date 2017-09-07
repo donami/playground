@@ -1,19 +1,19 @@
 <template>
 
-    <grid>
-      <grid-item size="1/4" class="thumb">
-
-        <div v-if="equipment.image">
-          <img :src="equipment.image" alt="Image" />
-        </div>
-
-      </grid-item>
-      <grid-item size="3/4">
-
-        <h3>{{ equipment.name }}</h3>
-
-      </grid-item>
-    </grid>
+  <v-card>
+    <v-container fluid grid-list-lg>
+      <v-layout row>
+        <v-flex xs7>
+          <div>
+            <div class="headline">{{ equipment.name }}</div>
+          </div>
+        </v-flex>
+        <v-flex xs5>
+          <v-card-media :src="equipment.image" height="125px" contain></v-card-media>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-card>
 
 </template>
 

@@ -41,6 +41,7 @@ module.exports = {
     // 'no-unused-vars': 0,
     'prefer-default-export': 0,
     'no-underscore-dangle': 0,
-    'no-console': 0
+    'no-console': 0,
+    'padded-blocks': 0
   }
 }

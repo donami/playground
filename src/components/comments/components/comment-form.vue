@@ -1,18 +1,26 @@
 <template>
 
-  <form v-on:submit.prevent="onSubmit">
-    <div class="field">
-      <label for="name">Your name</label>
-      <input type="text" v-model="name">
-    </div>
+  <v-form ref="form" v-model="valid">
 
-    <div class="field">
-      <label for="body">Your comment</label>
-      <input type="text" v-model="body">
-    </div>
+    <h2 class="headline">Share your thoughts</h2>
 
-    <button type="submit">Publish</button>
-  </form>
+    <v-text-field
+      label="Name"
+      v-model="name"
+      :rules="rules"
+      required>
+    </v-text-field>
+
+    <v-text-field
+      label="Comment"
+      v-model="body"
+      :rules="rules"
+      required>
+    </v-text-field>
+
+    <v-btn @click="onSubmit">Publish</v-btn>
+
+  </v-form>
 
 </template>
 
@@ -21,15 +29,25 @@ export default {
   data: () => ({
     body: '',
     name: '',
+    valid: false,
+    rules: [
+      v => !!v || 'This field is required',
+    ],
   }),
   methods: {
-    onSubmit() {
-      const comment = {
-        name: this.name,
-        body: this.body,
-      };
+    onSubmit(event) {
+      event.preventDefault();
 
-      this.$emit('submitted', comment);
+      this.$refs.form.validate();
+
+      if (this.valid) {
+        const comment = {
+          name: this.name,
+          body: this.body,
+        };
+
+        this.$emit('submitted', comment);
+      }
     },
   },
 };
