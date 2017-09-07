@@ -37,6 +37,12 @@ import GMaps from 'gmaps';
 import geolocation from '../../../services/geolocation';
 
 export default {
+  props: {
+    playgroundPos: {
+      type: Array,
+      default: () => [],
+    },
+  },
   created() {
     geolocation.getCurrentPosition()
       .then((position) => {
@@ -51,6 +57,17 @@ export default {
           lng: position.lng,
         });
 
+        return map;
+      })
+      .then((map) => {
+
+        this.playgroundPos.forEach(({ lat, lng }) => {
+          map.addMarker({
+            lat,
+            lng,
+            icon: '/static/playground_icon.png',
+          });
+        });
       })
       .catch(error => console.log(error));
   },

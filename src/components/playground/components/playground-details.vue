@@ -46,7 +46,7 @@
 
   </v-layout>
 
-  <playground-map></playground-map>
+  <playground-map :playgroundPos="[playground.location]"></playground-map>
 
   <comment-list :comments="comments" class="mb-5"></comment-list>
 
