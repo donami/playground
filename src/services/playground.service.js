@@ -20,4 +20,10 @@ export default {
       .catch(error => Promise.reject(error));
   },
 
+  addRating(id, rating) {
+    return httpService.put(`playground/${id}/add-rating`, { rating })
+      .then(response => Promise.resolve(response))
+      .catch(error => Promise.reject(error));
+  },
+
 };

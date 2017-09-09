@@ -9,6 +9,8 @@
 
   <h1 class="display-1">{{ playground.name }}</h1>
 
+  <star-rating @rating-selected="setRating" :rating="playground.rating"></star-rating>
+
   <blockquote v-if="playground.description" class="mb-3">
     {{ playground.description }}
   </blockquote>
@@ -80,6 +82,9 @@ export default {
   methods: {
     onAddComment(comment) {
       this.$emit('addComment', comment);
+    },
+    setRating(rating) {
+      this.$emit('addRating', rating);
     },
   },
 };

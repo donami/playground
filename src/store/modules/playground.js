@@ -46,6 +46,17 @@ const actions = {
       })
       .catch(err => console.log(err));
   },
+
+  addRating({ commit }, payload) {
+    playgroundService.addRating(payload.playgroundId, payload.rating)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+      })
+      .catch(err => console.log(err));
+  },
 };
 
 // mutations

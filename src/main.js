@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import VueFractionGrid from 'vue-fraction-grid';
 import Vuetify from 'vuetify';
+import StarRating from 'vue-star-rating';
 
 import App from './App';
 import router from './router';
@@ -21,6 +22,8 @@ Vue.use(VueFractionGrid, {
 });
 
 Vue.use(Vuetify);
+
+Vue.component('star-rating', StarRating);
 
 /* eslint-disable no-new */
 new Vue({

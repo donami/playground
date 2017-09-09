@@ -16,12 +16,9 @@
 
 
     </main>
-    
+
     <footer-bottom></footer-bottom>
 
-    <!-- <v-footer :absolute="true">
-      <span>© {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
   </v-app>
 </div>
 </template>

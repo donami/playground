@@ -33,17 +33,25 @@
     </v-card>
 
     <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
-      <template slot="items" scope="props">
-           <td>
-             <img :src="props.item.image" alt="Image" class="thumb" />
-           </td>
-           <td>
-             <router-link :to="props.item.id">{{ props.item.name }}</router-link>
-             <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}"></router-link>
-           </td>
-           <td class="text-xs-right">{{ props.item.description }}</td>
-           <td class="text-xs-right">{{ props.item.location }}</td>
-         </template>
+    <template slot="items" scope="props">
+      <td>
+        <img :src="props.item.image" alt="Image" class="thumb" />
+      </td>
+      <td>
+        <router-link :to="props.item.id">{{ props.item.name }}</router-link>
+        <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}"></router-link>
+      </td>
+      <td>
+        <star-rating
+          :rating="props.item.rating"
+          :show-rating="false"
+          :star-size="20"
+          :read-only="true">
+        </star-rating>
+      </td>
+      <td class="text-xs-right">{{ props.item.description }}</td>
+      <td class="text-xs-right">{{ props.item.location }}</td>
+    </template>
     </v-data-table>
 
   </v-container>
@@ -78,6 +86,12 @@ export default {
           value: 'name',
         },
         {
+          text: 'Rating',
+          align: 'left',
+          sortable: true,
+          value: 'rating',
+        },
+        {
           text: 'Description',
           value: 'description',
         },
@@ -97,6 +111,7 @@ export default {
         description: playground.description,
         location: playground.location ? `${playground.location.address}, ${playground.location.city}` : null,
         image: playground.images.length ? playground.images[0] : null,
+        rating: playground.rating,
       }));
     },
   },

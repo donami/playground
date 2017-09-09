@@ -4,7 +4,8 @@
     :playground="playground"
     :equipments="equipments"
     :comments="comments"
-    @addComment="onAddComment">
+    @addComment="onAddComment"
+    @addRating="onAddRating">
   </playground-details>
 
 </template>
@@ -26,6 +27,7 @@ export default {
   methods: {
     ...mapActions({
       addComment: 'addComment',
+      addRating: 'addRating',
     }),
     onAddComment(comment) {
       const body = {
@@ -36,6 +38,10 @@ export default {
       };
 
       this.addComment(body);
+    },
+    onAddRating(rating) {
+
+      this.addRating({ playgroundId: this.playground._id, rating });
     },
   },
 };
