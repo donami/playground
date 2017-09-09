@@ -21,6 +21,17 @@
       </v-card-text>
     </v-card>
 
+    <v-card>
+      <v-card-title primary-title>
+        <div>
+          <div class="headline">Playgrounds nearby</div>
+        </div>
+      </v-card-title>
+      <v-card-text>
+        <playground-map :playgrounds="playgrounds"></playground-map>
+      </v-card-text>
+    </v-card>
+
     <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
       <template slot="items" scope="props">
            <td>
@@ -43,6 +54,7 @@
 
 <script>
 import PlaygroundSearch from './playground-search';
+import PlaygroundMap from './playground-map';
 
 export default {
   name: 'playground-list',
@@ -95,6 +107,7 @@ export default {
   },
   components: {
     playgroundSearch: PlaygroundSearch,
+    playgroundMap: PlaygroundMap,
   },
 };
 </script>

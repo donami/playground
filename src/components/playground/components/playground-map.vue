@@ -1,7 +1,6 @@
 <style>
-
 .map-overlay {
-  max-width: 600px;
+  max-width: 100%;
   height: 400px;
   margin: 0 auto;
   background-color: #fff;
@@ -10,15 +9,13 @@
 }
 
 #map {
-  max-width: 550px;
-  height: 400px;
+  max-width: 100%;
+  height: 100%;
   margin: 0 auto;
 }
-
 </style>
 
 <template>
-
 <div>
 
   <div class="map-overlay">
@@ -28,22 +25,33 @@
   </div>
 
 </div>
-
 </template>
 
 <script>
-
 import GMaps from 'gmaps';
 import geolocation from '../../../services/geolocation';
 
 export default {
   props: {
-    playgroundPos: {
+    playgrounds: {
       type: Array,
       default: () => [],
     },
   },
+  methods: {
+    gotoPlayground(ev) {
+
+      // Redirect to playground view
+      this.$router.push({
+        name: 'playground-view',
+        params: {
+          id: ev.playground._id,
+        },
+      });
+    },
+  },
   created() {
+
     geolocation.getCurrentPosition()
       .then((position) => {
         const map = new GMaps({
@@ -61,16 +69,29 @@ export default {
       })
       .then((map) => {
 
-        this.playgroundPos.forEach(({ lat, lng }) => {
+        // Add markers for the playgrounds
+        this.playgrounds.forEach((playground) => {
+
+          if (!playground.location || !playground.location.lng || !playground.location.lat) {
+
+            return;
+          }
+
+          const {
+            lng,
+            lat,
+          } = playground.location;
+
           map.addMarker({
             lat,
             lng,
             icon: '/static/playground_icon.png',
+            click: this.gotoPlayground,
+            playground,
           });
         });
       })
       .catch(error => console.log(error));
   },
 };
-
 </script>
