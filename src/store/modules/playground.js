@@ -36,6 +36,17 @@ const actions = {
       .catch(err => console.log(err));
   },
 
+  createPlayground({ commit }, payload) {
+    playgroundService.create(payload)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+      })
+      .catch(err => console.log(err));
+  },
+
   addComment({ commit }, payload) {
     playgroundService.addComment(payload.playgroundId, payload.comment)
       .then((response) => {

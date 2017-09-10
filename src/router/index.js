@@ -3,6 +3,10 @@ import Router from 'vue-router';
 import HomePage from '@/components/core/containers/home-page';
 import PlaygroundCollection from '@/components/playground/containers/playground-collection';
 import PlaygroundSelect from '@/components/playground/containers/playground-select';
+import Admin from '@/components/admin/containers/admin';
+import Dashboard from '@/components/admin/containers/dashboard';
+import Playgrounds from '@/components/admin/containers/playgrounds';
+import PlaygroundAdd from '@/components/admin/containers/playgrounds-add';
 
 Vue.use(Router);
 
@@ -18,6 +22,27 @@ export default new Router({
       path: '/list',
       name: 'playground-list',
       component: PlaygroundCollection,
+    },
+    {
+      path: '/admin',
+      component: Admin,
+      children: [
+        {
+          name: 'admin-dashboard',
+          path: '',
+          component: Dashboard,
+        },
+        {
+          name: 'admin-playgrounds',
+          path: 'playgrounds',
+          component: Playgrounds,
+        },
+        {
+          name: 'admin-playgrounds-add',
+          path: 'playgrounds/add',
+          component: PlaygroundAdd,
+        },
+      ],
     },
     {
       path: '/:id',

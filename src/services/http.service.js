@@ -18,4 +18,10 @@ export default {
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error));
   },
+
+  post(url, data) {
+    return Vue.http.post(`${API_ENDPOINT}/${url}`, data)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error));
+  },
 };
