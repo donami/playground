@@ -3,22 +3,43 @@
 
 <template>
 
-  <v-container>
+  <div>
+    
     <playground-edit-dialog
       :playground="editing"
       @save="onSave">
     </playground-edit-dialog>
 
-    <ul>
-      <li v-for="playground in playgrounds">
-        {{ playground.name }}
-        <v-btn @click="remove(playground)" v-if="!playground.deleted">Remove</v-btn>
-        <v-btn @click="restore(playground)" v-if="playground.deleted">Restore</v-btn>
-        <v-btn @click="edit(playground)">Edit</v-btn>
-      </li>
-    </ul>
+    <v-card class="white search-card mb-5">
+      <v-card-text>
+        <v-text-field append-icon="search" name="search" v-model="search" label="Filter playground..."></v-text-field>
+      </v-card-text>
+    </v-card>
 
-  </v-container>
+    <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
+      <template slot="items" scope="props">
+        <td>
+          <router-link :to="props.item._id">{{ props.item.name }}</router-link>
+          <router-link :to="{ name: 'playground-view', params: { id: props.item._id }}"></router-link>
+        </td>
+        <td>
+          <star-rating
+            :rating="props.item.rating"
+            :show-rating="false"
+            :star-size="20"
+            :read-only="true">
+          </star-rating>
+        </td>
+        <td class="text-xs-right">{{ props.item.location }}</td>
+        <td>
+          <v-btn @click="remove(props.item)" v-if="!props.item.deleted">Remove</v-btn>
+          <v-btn @click="restore(props.item)" v-if="props.item.deleted">Restore</v-btn>
+          <v-btn @click="edit(props.item)">Edit</v-btn>
+        </td>
+      </template>
+    </v-data-table>
+
+  </div>
 
 
 </template>
@@ -33,9 +54,45 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    items() {
+      return this.playgrounds.map(playground => ({
+        _id: playground._id,
+        name: playground.name,
+        description: playground.description,
+        location: playground.location ? `${playground.location.address}, ${playground.location.city}` : null,
+        image: playground.images.length ? playground.images[0] : null,
+        rating: playground.rating,
+        deleted: playground.deleted,
+      }));
+    },
+  },
   data() {
     return {
       editing: null,
+      search: '',
+      headers: [
+        {
+          text: 'Playground',
+          align: 'left',
+          sortable: true,
+          value: 'name',
+        },
+        {
+          text: 'Rating',
+          align: 'left',
+          sortable: true,
+          value: 'rating',
+        },
+        {
+          text: 'Location',
+          value: 'location',
+        },
+        {
+          text: 'Actions',
+          value: false,
+        },
+      ],
     };
   },
   methods: {
@@ -44,7 +101,9 @@ export default {
       this.$emit('remove', playground);
     },
 
-    edit(playground) {
+    edit(item) {
+
+      const playground = this.playgrounds.find(playground => playground._id === item._id);
       this.editing = playground;
     },
 

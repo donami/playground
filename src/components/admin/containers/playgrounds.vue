@@ -6,7 +6,9 @@
 
 <template>
 
-  <v-container>
+  <v-container style="position: relative" class="mb-5">
+
+    <h1 class="headline">Playgrounds</h1>
 
     <playground-list
       :playgrounds="playgrounds"
@@ -14,6 +16,19 @@
       @remove="onRemovePlayground"
       @restore="onRestorePlayground">
     </playground-list>
+
+    <v-btn
+      absolute
+      dark
+      fab
+      top
+      small
+      right
+      router
+      :to="{ name: 'admin-playgrounds-add' }"
+      class="pink">
+      <v-icon>add</v-icon>
+    </v-btn>
 
   </v-container>
 

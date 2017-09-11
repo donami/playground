@@ -8,7 +8,6 @@
 
   <v-layout row justify-center v-if="form">
     <v-dialog v-model="dialog" persistent>
-      <v-btn primary dark slot="activator">Open Dialog</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">User Profile</span>

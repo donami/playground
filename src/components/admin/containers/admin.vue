@@ -4,6 +4,7 @@
 <template>
 
   <v-container>
+
     <v-layout row>
 
       <v-flex xs12 sm4 md3>
@@ -35,9 +36,6 @@
                     <router-link :to="{ name: subItem.route }">{{ subItem.text }}</router-link>
                   </v-list-tile-title>
                 </v-list-tile-content>
-                <!-- <v-list-tile-action> -->
-                  <!-- <v-icon>home</v-icon> -->
-                <!-- </v-list-tile-action> -->
               </v-list-tile>
 
             </v-list-group>
@@ -94,11 +92,6 @@ export default {
 
     };
   },
-  created() {
-
-    console.log(this.$route);
-  },
-
 };
 
 </script>
