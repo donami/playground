@@ -6,7 +6,7 @@ import PlaygroundSelect from '@/components/playground/containers/playground-sele
 import Admin from '@/components/admin/containers/admin';
 import Dashboard from '@/components/admin/containers/dashboard';
 import Playgrounds from '@/components/admin/containers/playgrounds';
-import PlaygroundAdd from '@/components/admin/containers/playgrounds-add';
+import PlaygroundAddPage from '@/components/admin/containers/playground-add-page';
 
 Vue.use(Router);
 
@@ -40,7 +40,7 @@ export default new Router({
         {
           name: 'admin-playgrounds-add',
           path: 'playgrounds/add',
-          component: PlaygroundAdd,
+          component: PlaygroundAddPage,
         },
       ],
     },

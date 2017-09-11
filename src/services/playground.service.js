@@ -14,8 +14,26 @@ export default {
       .catch(error => Promise.reject(error));
   },
 
+  update(playground) {
+    return httpService.put(`playground/${playground._id}`, playground)
+      .then(response => Promise.resolve(response))
+      .catch(error => Promise.reject(error));
+  },
+
   create(playground) {
     return httpService.post('playground', playground)
+      .then(response => Promise.resolve(response))
+      .catch(error => Promise.reject(error));
+  },
+
+  delete(playgroundId) {
+    return httpService.delete(`playground/${playgroundId}`)
+      .then(response => Promise.resolve(response))
+      .catch(error => Promise.reject(error));
+  },
+
+  restore(playgroundId) {
+    return httpService.get(`playground/${playgroundId}/restore`)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error));
   },

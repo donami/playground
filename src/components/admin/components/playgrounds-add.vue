@@ -1,7 +1,4 @@
 <style lang="scss" scoped>
-
-
-
 </style>
 
 <template>
@@ -72,7 +69,7 @@
 </template>
 
 <script>
-import GMaps from 'gmaps';
+import geolocation from '../../../services/geolocation';
 
 export default {
   data: () => ({
@@ -92,7 +89,7 @@ export default {
     ],
   }),
   methods: {
-    onSubmit(event) {
+    onSubmit() {
       event.preventDefault();
 
       this.$refs.form.validate();
@@ -104,46 +101,22 @@ export default {
       }
 
       if (this.valid) {
-        const comment = {
+        const playground = {
           name: this.name,
           description: this.description,
           location: this.location,
         };
 
-        this.$emit('submitted', comment);
+        this.$emit('submitted', playground);
       }
     },
     getCoords() {
-      GMaps.geocode({
-        address: this.locateAddress,
-        callback: ((results, status) => {
-          if (status === 'OK') {
 
-            const location = results[0];
-
-            if (!location) {
-              console.log('Unable to find location.');
-            }
-
-            const latlng = location.geometry.location;
-
-            this.location.lat = latlng.lat();
-            this.location.lng = latlng.lng();
-
-            this.location.formatted_address = location.formatted_address;
-            this.location.city = location.address_components[2].long_name;
-            this.location.address = `${location.address_components[1].long_name} ${location.address_components[0].long_name}`;
-
-            // map.setCenter(latlng.lat(), latlng.lng());
-            // map.addMarker({
-            //   lat: latlng.lat(),
-            //   lng: latlng.lng()
-            // });
-          } else {
-            console.log('Unable to find location.');
-          }
-        }),
-      });
+      geolocation.getCoords(this.locateAddress)
+        .then((location) => {
+          this.location = location;
+        })
+        .catch(error => console.log(error));
     },
   },
 };

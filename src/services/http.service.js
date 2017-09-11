@@ -24,4 +24,10 @@ export default {
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error));
   },
+
+  delete(url) {
+    return Vue.http.delete(`${API_ENDPOINT}/${url}`)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error));
+  },
 };

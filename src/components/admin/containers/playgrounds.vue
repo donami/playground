@@ -7,31 +7,55 @@
 <template>
 
   <v-container>
-    Playgrounds
 
-    <playground-add @submitted="onAddPlayground"></playground-add>
+    <playground-list
+      :playgrounds="playgrounds"
+      @save="onSavePlayground"
+      @remove="onRemovePlayground"
+      @restore="onRestorePlayground">
+    </playground-list>
+
   </v-container>
 
 </template>
 
 <script>
 
-import { mapActions } from 'vuex';
-
-import PlaygroundAdd from './playgrounds-add';
+import { mapGetters, mapActions } from 'vuex';
+import PlaygroundList from '../components/playground-list';
 
 export default {
+  computed: mapGetters({
+    playgrounds: 'playgroundCollection',
+  }),
   components: {
-    playgroundAdd: PlaygroundAdd,
+    playgroundList: PlaygroundList,
   },
   methods: {
-    onAddPlayground(playground) {
 
-      this.createPlayground(playground);
-    },
     ...mapActions({
-      createPlayground: 'createPlayground',
+      removePlayground: 'removePlayground',
+      updatePlayground: 'updatePlayground',
+      restorePlayground: 'restorePlayground',
     }),
+
+    onRemovePlayground(playground) {
+
+      this.removePlayground(playground._id);
+    },
+
+    onRestorePlayground(playground) {
+
+      this.restorePlayground(playground._id);
+    },
+
+    onSavePlayground(playground) {
+
+      this.updatePlayground(playground);
+    },
+  },
+  created() {
+    this.$store.dispatch('getAll');
   },
 };
 

@@ -6,11 +6,10 @@
   <v-container>
     <v-layout row>
 
-      <v-flex xs12 sm4>
+      <v-flex xs12 sm4 md3>
         <v-card>
           <v-toolbar class="teal white--text" dark>
-            <v-toolbar-side-icon></v-toolbar-side-icon>
-            <v-toolbar-title>Topics</v-toolbar-title>
+            <v-toolbar-title>Admin</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
               <v-icon>more_vert</v-icon>
@@ -46,7 +45,7 @@
         </v-card>
       </v-flex>
 
-      <v-flex xs12 sm8>
+      <v-flex xs12 sm8 md9>
 
         <router-view></router-view>
 
@@ -61,14 +60,13 @@
 <script>
 
 export default {
-
   data() {
     return {
 
       menu: [
         {
           text: 'Home',
-          active: true,
+          active: this.$route.name === 'admin-dashboard',
           icon: 'home',
           items: [
             {
@@ -79,6 +77,7 @@ export default {
         },
         {
           text: 'Playgrounds',
+          active: this.$route.name === 'admin-playgrounds',
           icon: 'widgets',
           items: [
             {
@@ -94,6 +93,10 @@ export default {
       ],
 
     };
+  },
+  created() {
+
+    console.log(this.$route);
   },
 
 };
