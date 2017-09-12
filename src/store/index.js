@@ -4,6 +4,8 @@ import * as actions from './actions';
 import * as getters from './getters';
 import playground from './modules/playground';
 import entities from './modules/entities';
+import equipment from './modules/equipment';
+import layout from './modules/layout';
 // import createLogger from '../../../src/plugins/logger';
 
 Vue.use(Vuex);
@@ -16,6 +18,8 @@ export default new Vuex.Store({
   modules: {
     entities,
     playground,
+    equipment,
+    layout,
   },
   strict: debug,
   // plugins: debug ? [createLogger()] : []

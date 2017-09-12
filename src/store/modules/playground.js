@@ -10,6 +10,7 @@ import { playgroundSchema } from '../schema';
 const state = {
   all: [],
   selected: null,
+  loaded: false,
 };
 
 // actions
@@ -36,6 +37,60 @@ const actions = {
       .catch(err => console.log(err));
   },
 
+  createPlayground({ commit }, payload) {
+    playgroundService.create(payload)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Playground was added' });
+      })
+      .catch(err => console.log(err));
+  },
+
+  updatePlayground({ commit }, payload) {
+    playgroundService.update(payload)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Playground was updated' });
+      })
+      .catch((error) => {
+        commit(types.SHOW_NOTIFICATION, { context: 'error', text: error });
+      });
+  },
+
+  removePlayground({ commit }, playgroundId) {
+    playgroundService.delete(playgroundId)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Playground was removed' });
+      })
+      .catch((error) => {
+        commit(types.SHOW_NOTIFICATION, { context: 'error', text: error });
+      });
+  },
+
+  restorePlayground({ commit }, playgroundId) {
+    playgroundService.restore(playgroundId)
+      .then((response) => {
+        const playground = response.data;
+        const normalized = normalize(playground, playgroundSchema);
+
+        commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Playground was restored' });
+      })
+      .catch((error) => {
+        commit(types.SHOW_NOTIFICATION, { context: 'error', text: error });
+      });
+  },
+
   addComment({ commit }, payload) {
     playgroundService.addComment(payload.playgroundId, payload.comment)
       .then((response) => {
@@ -43,8 +98,11 @@ const actions = {
         const normalized = normalize(playground, playgroundSchema);
 
         commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Your comment was published' });
       })
-      .catch(err => console.log(err));
+      .catch((error) => {
+        commit(types.SHOW_NOTIFICATION, { context: 'error', text: error });
+      });
   },
 
   addRating({ commit }, payload) {
@@ -54,6 +112,7 @@ const actions = {
         const normalized = normalize(playground, playgroundSchema);
 
         commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Thanks for rating!' });
       })
       .catch(err => console.log(err));
   },
@@ -66,6 +125,7 @@ const mutations = {
       ...state.all,
       ...playgrounds,
     ]);
+    state.loaded = true;
   },
   [types.SELECT_PLAYGROUND] (state, playground) {
     state.selected = playground;

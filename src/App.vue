@@ -12,6 +12,8 @@
      </v-toolbar>
     <main>
 
+      <notification></notification>
+
       <router-view></router-view>
 
 
@@ -25,11 +27,13 @@
 
 <script>
 import FooterBottom from './components/core/components/footer-bottom';
+import Notification from './components/core/components/notification';
 
 export default {
   name: 'app',
   components: {
     footerBottom: FooterBottom,
+    notification: Notification,
   },
 };
 </script>
