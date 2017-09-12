@@ -4,6 +4,12 @@ export const playgroundCollection = state => (
   )
 );
 
+export const equipmentCollection = state => (
+  state.equipment.all.map(equipmentId =>
+    state.entities.data.equipments[equipmentId],
+  )
+);
+
 export const getSelectedPlayground = (state) => {
   const selectedPlaygroundId = state.playground.selected;
 

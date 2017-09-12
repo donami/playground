@@ -10,6 +10,7 @@ import { playgroundSchema } from '../schema';
 const state = {
   all: [],
   selected: null,
+  loaded: false,
 };
 
 // actions
@@ -124,6 +125,7 @@ const mutations = {
       ...state.all,
       ...playgrounds,
     ]);
+    state.loaded = true;
   },
   [types.SELECT_PLAYGROUND] (state, playground) {
     state.selected = playground;

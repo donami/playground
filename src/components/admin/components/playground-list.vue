@@ -4,9 +4,10 @@
 <template>
 
   <div>
-    
+
     <playground-edit-dialog
       :playground="editing"
+      :equipments="equipments"
       @save="onSave">
     </playground-edit-dialog>
 
@@ -50,6 +51,10 @@ import PlaygroundEditDialog from './playground-edit-dialog';
 export default {
   props: {
     playgrounds: {
+      type: Array,
+      default: () => [],
+    },
+    equipments: {
       type: Array,
       default: () => [],
     },

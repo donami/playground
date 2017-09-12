@@ -12,6 +12,7 @@
 
     <playground-list
       :playgrounds="playgrounds"
+      :equipments="equipments"
       @save="onSavePlayground"
       @remove="onRemovePlayground"
       @restore="onRestorePlayground">
@@ -35,14 +36,28 @@
 </template>
 
 <script>
-
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import PlaygroundList from '../components/playground-list';
 
 export default {
-  computed: mapGetters({
-    playgrounds: 'playgroundCollection',
-  }),
+  computed: {
+    ...mapGetters({
+      equipments: 'equipmentCollection',
+    }),
+    ...mapState({
+      playgrounds: (state) => {
+        const playgrounds = state.playground.all.map(playground =>
+          state.entities.data.playgrounds[playground]);
+
+        return playgrounds.map(playground => (
+          Object.assign({}, playground, {
+            equipments: playground.equipments.map(equipmentId =>
+              state.entities.data.equipments[equipmentId]),
+          })
+        ));
+      },
+    }),
+  },
   components: {
     playgroundList: PlaygroundList,
   },
@@ -56,7 +71,8 @@ export default {
 
     onRemovePlayground(playground) {
 
-      this.removePlayground(playground._id);
+      console.log(this.test(playground));
+      // this.removePlayground(playground._id);
     },
 
     onRestorePlayground(playground) {

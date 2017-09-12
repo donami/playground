@@ -9,14 +9,14 @@
   <v-container>
     Playgrounds
 
-    <playground-add @submitted="onAddPlayground"></playground-add>
+    <playground-add @submitted="onAddPlayground" :equipments="equipments"></playground-add>
   </v-container>
 
 </template>
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import PlaygroundAdd from '../components/playgrounds-add';
 
@@ -31,8 +31,16 @@ export default {
       createPlayground: 'createPlayground',
     }),
   },
+  computed: {
+    ...mapGetters({
+      equipments: 'equipmentCollection',
+    }),
+  },
   components: {
     playgroundAdd: PlaygroundAdd,
+  },
+  created() {
+    this.$store.dispatch('getAll');
   },
 };
 
