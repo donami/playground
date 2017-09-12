@@ -60,6 +60,13 @@
             </v-flex>
           </v-layout>
 
+          <h2 class="headline">Add images</h2>
+          <image-upload
+            :images="form.images"
+            v-on:uploaded="onImageUpload"
+            v-on:removeImage="onRemoveImage">
+          </image-upload>
+
           <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
@@ -75,6 +82,7 @@
 
 <script>
 import EquipmentList from './equipment-list';
+import ImageUpload from '../../core/components/image-upload';
 import LocationBox from './location-box';
 import geolocation from '../../../services/geolocation';
 
@@ -89,6 +97,22 @@ export default {
     };
   },
   methods: {
+
+    onRemoveImage(image) {
+
+      this.form.images = this.form.images.filter(other => image.path !== other);
+    },
+
+    onImageUpload(data) {
+
+      this.form = Object.assign({}, this.form, {
+        images: [
+          ...this.form.images,
+          data.path,
+        ],
+      });
+    },
+
     removeEquipment(equipment) {
 
       this.form.equipments = this.form.equipments.filter(other => other !== equipment);
@@ -121,20 +145,18 @@ export default {
       this.$emit('save', this.form);
       this.dialog = false;
     },
-  },
-  watch: {
-    playground() {
-      if (this.dialog === false) {
-        this.dialog = true;
-        this.form = {
-          ...this.playground,
-        };
-      }
+
+    open(playground) {
+      this.dialog = true;
+      this.form = {
+        ...playground,
+      };
     },
   },
   components: {
     equipmentList: EquipmentList,
     locationBox: LocationBox,
+    ImageUpload,
   },
 };
 

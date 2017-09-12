@@ -6,7 +6,7 @@
   <div>
 
     <playground-edit-dialog
-      :playground="editing"
+      ref="editDialog"
       :equipments="equipments"
       @save="onSave">
     </playground-edit-dialog>
@@ -42,7 +42,6 @@
 
   </div>
 
-
 </template>
 
 <script>
@@ -74,7 +73,6 @@ export default {
   },
   data() {
     return {
-      editing: null,
       search: '',
       headers: [
         {
@@ -109,7 +107,7 @@ export default {
     edit(item) {
 
       const playground = this.playgrounds.find(playground => playground._id === item._id);
-      this.editing = playground;
+      this.$refs.editDialog.open(playground);
     },
 
     restore(playground) {
