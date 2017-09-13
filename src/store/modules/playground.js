@@ -118,6 +118,10 @@ const actions = {
   },
 };
 
+const getters = {
+  getPlaygroundsLoaded: state => state.loaded,
+};
+
 // mutations
 const mutations = {
   [types.RECEIVE_PLAYGROUNDS] (state, playgrounds) {
@@ -136,4 +140,5 @@ export default {
   state,
   mutations,
   actions,
+  getters,
 };

@@ -25,6 +25,7 @@ export default {
   computed: {
     ...mapGetters({
       playgrounds: 'playgroundCollection',
+      playgroundsLoaded: 'getPlaygroundsLoaded',
     }),
     filteredPlaygrounds() {
       return this.playgrounds.filter(playground => playground.deleted === false);
@@ -34,7 +35,10 @@ export default {
     'playground-list': PlaygroundList,
   },
   created() {
-    this.$store.dispatch('getAll');
+    if (!this.playgroundsLoaded) {
+
+      this.$store.dispatch('getAll');
+    }
   },
 };
 

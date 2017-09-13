@@ -43,6 +43,7 @@ export default {
   computed: {
     ...mapGetters({
       equipments: 'equipmentCollection',
+      playgroundsLoaded: 'getPlaygroundsLoaded',
     }),
     ...mapState({
       playgrounds: (state) => {
@@ -85,7 +86,10 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('getAll');
+    if (!this.playgroundsLoaded) {
+
+      this.$store.dispatch('getAll');
+    }
   },
 };
 
