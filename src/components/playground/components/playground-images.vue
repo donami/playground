@@ -26,22 +26,26 @@
 
   <v-layout row wrap>
 
-    <v-flex xs12 md4>
+    <v-flex xs12 md4 v-if="images.length">
 
       <div class="image-list">
-        <div v-for="image in images">
-          <img :src="image" alt="Image Preview" v-on:click.stop="dialog = true">
+        <div v-for="image in images" v-if="activeImage !== image">
+          <img :src="image" alt="Image Preview" v-on:click.stop="activeImage = image">
         </div>
       </div>
 
     </v-flex>
 
-    <v-flex xs12 md8>
+    <v-flex xs12 md8 v-if="images.length">
 
       <div class="active-image">
         <img :src="activeImage" v-on:click.stop="dialog = true" alt="Image">
       </div>
 
+    </v-flex>
+
+    <v-flex xs12 v-if="!images.length">
+      <img :src="activeImage" alt="Image">
     </v-flex>
 
   </v-layout>
@@ -59,6 +63,7 @@ export default {
   data: () => ({
     activeImage: null,
     dialog: false,
+    defaultPlaygroundImage: '/static/no-image-playground.jpg',
   }),
   methods: {
     changeImage(image) {
@@ -66,7 +71,7 @@ export default {
     },
   },
   created() {
-    this.activeImage = this.images.length ? this.images[0] : null;
+    this.activeImage = this.images.length ? this.images[0] : this.defaultPlaygroundImage;
   },
 };
 </script>

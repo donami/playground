@@ -35,7 +35,9 @@
     <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
     <template slot="items" scope="props">
       <td>
-        <img :src="props.item.image" alt="Image" class="thumb" />
+        <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}">
+          <img :src="props.item.image" alt="Image" class="thumb" />
+        </router-link>
       </td>
       <td>
         <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}">
@@ -102,6 +104,7 @@ export default {
         },
       ],
       search: '',
+      defaultPlaygroundImage: '/static/no-image-playground.jpg',
     };
   },
   computed: {
@@ -111,7 +114,7 @@ export default {
         name: playground.name,
         description: playground.description,
         location: playground.location ? playground.location.formatted_address : null,
-        image: playground.images.length ? playground.images[0] : null,
+        image: playground.images.length ? playground.images[0] : this.defaultPlaygroundImage,
         rating: playground.rating,
       }));
     },
