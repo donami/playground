@@ -39,6 +39,9 @@
                     <li>
                       <router-link :to="{ name: 'home' }">Help</router-link>
                     </li>
+                    <li>
+                      <router-link :to="{ name: 'admin-dashboard' }">Admin</router-link>
+                    </li>
                   </ul>
 
                 </v-card-text>
