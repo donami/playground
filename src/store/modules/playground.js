@@ -44,6 +44,7 @@ const actions = {
         const normalized = normalize(playground, playgroundSchema);
 
         commit(types.LOAD_ENTITIES, normalized.entities);
+        commit(types.CREATE_PLAYGROUND, playground._id);
         commit(types.SHOW_NOTIFICATION, { context: 'success', text: 'Playground was added' });
       })
       .catch(err => console.log(err));
@@ -124,6 +125,7 @@ const getters = {
 
 // mutations
 const mutations = {
+
   [types.RECEIVE_PLAYGROUNDS] (state, playgrounds) {
     state.all = _.uniq([
       ...state.all,
@@ -131,8 +133,16 @@ const mutations = {
     ]);
     state.loaded = true;
   },
+
   [types.SELECT_PLAYGROUND] (state, playground) {
     state.selected = playground;
+  },
+
+  [types.CREATE_PLAYGROUND] (state, playgroundId) {
+    state.all = [
+      ...state.all,
+      playgroundId,
+    ];
   },
 };
 
