@@ -38,8 +38,9 @@
         <img :src="props.item.image" alt="Image" class="thumb" />
       </td>
       <td>
-        <router-link :to="props.item.id">{{ props.item.name }}</router-link>
-        <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}"></router-link>
+        <router-link :to="{ name: 'playground-view', params: { id: props.item.id }}">
+          {{ props.item.name || props.item.location }}
+        </router-link>
       </td>
       <td>
         <star-rating
@@ -109,7 +110,7 @@ export default {
         id: playground._id,
         name: playground.name,
         description: playground.description,
-        location: playground.location ? `${playground.location.address}, ${playground.location.city}` : null,
+        location: playground.location ? playground.location.formatted_address : null,
         image: playground.images.length ? playground.images[0] : null,
         rating: playground.rating,
       }));

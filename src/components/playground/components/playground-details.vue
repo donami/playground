@@ -7,7 +7,7 @@
 <template>
 <v-container v-if="playground">
 
-  <h1 class="display-1">{{ playground.name }}</h1>
+  <h1 class="display-1">{{ playground.name || playground.location. formatted_address }}</h1>
 
   <star-rating @rating-selected="setRating" :rating="playground.rating"></star-rating>
 

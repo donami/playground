@@ -20,8 +20,9 @@
     <v-data-table v-bind:headers="headers" v-bind:search="search" :items="items" hide-actions class="elevation-1">
       <template slot="items" scope="props">
         <td>
-          <router-link :to="props.item._id">{{ props.item.name }}</router-link>
-          <router-link :to="{ name: 'playground-view', params: { id: props.item._id }}"></router-link>
+          <router-link :to="{ name: 'playground-view', params: { id: props.item._id }}">
+            {{ props.item.name || props.item.location }}
+          </router-link>
         </td>
         <td>
           <star-rating
@@ -64,7 +65,7 @@ export default {
         _id: playground._id,
         name: playground.name,
         description: playground.description,
-        location: playground.location ? `${playground.location.address}, ${playground.location.city}` : null,
+        location: playground.location ? playground.location.formatted_address : null,
         image: playground.images.length ? playground.images[0] : null,
         rating: playground.rating,
         deleted: playground.deleted,

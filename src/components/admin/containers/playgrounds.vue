@@ -71,8 +71,7 @@ export default {
 
     onRemovePlayground(playground) {
 
-      console.log(this.test(playground));
-      // this.removePlayground(playground._id);
+      this.removePlayground(playground._id);
     },
 
     onRestorePlayground(playground) {

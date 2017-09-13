@@ -17,7 +17,6 @@
                           <v-text-field
                             name="name"
                             v-model="form.name"
-                            :rules="rules"
                             label="Name of the playground">
                           </v-text-field>
                       </v-flex>
@@ -30,7 +29,6 @@
                         <v-text-field
                           name="description"
                           v-model="form.description"
-                          :rules="rules"
                           label="Describe the playground">
                         </v-text-field>
                       </v-flex>
