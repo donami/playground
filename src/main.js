@@ -11,7 +11,7 @@ import store from './store';
 
 import formatDate from './filters/date';
 
-import('vuetify/dist/vuetify.min.css');
+// import('vuetify/dist/vuetify.min.css');
 
 Vue.filter('formatDate', formatDate);
 

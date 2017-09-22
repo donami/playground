@@ -5,6 +5,7 @@ import PlaygroundCollection from '@/components/playground/containers/playground-
 import PlaygroundSelect from '@/components/playground/containers/playground-select';
 import Admin from '@/components/admin/containers/admin';
 import Dashboard from '@/components/admin/containers/dashboard';
+import Test from '@/components/core/containers/test';
 import Playgrounds from '@/components/admin/containers/playgrounds';
 import PlaygroundAddPage from '@/components/admin/containers/playground-add-page';
 
@@ -43,6 +44,11 @@ export default new Router({
           component: PlaygroundAddPage,
         },
       ],
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Test,
     },
     {
       path: '/:id',
